@@ -1,6 +1,5 @@
 import { Field, ErrorMessage } from 'formik';
 import { DatePicker } from 'antd';
-import moment from 'moment';
 
 const Date = ({ label, name, required, errors, touched, ...rest }) => {
   return (
@@ -28,6 +27,7 @@ const Date = ({ label, name, required, errors, touched, ...rest }) => {
               defaultValue={value}
               onChange={(val) => setFieldValue(name, val)}
               showTime
+              format="DD-MM-YYYY HH:mm:ss"
             />
           );
         }}

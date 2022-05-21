@@ -33,6 +33,7 @@ const MultiSelect = ({
                   ? 'form-control py-0 px-1 is-invalid'
                   : 'form-control py-0 px-1'
               }
+              allowSelectAll={true}
               defaultValue={selectedOption}
               onBlur={() => setFieldTouched(name, true)}
               onChange={(e) => {

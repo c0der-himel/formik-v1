@@ -2,6 +2,7 @@ import { Formik, Form } from 'formik';
 import { useState } from 'react';
 import * as Yup from 'yup';
 import FormikControl from './FormikControl';
+import moment from 'moment';
 
 const FormikContainer = () => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -49,7 +50,7 @@ const FormikContainer = () => {
     professionOption: Yup.string().required('Required'),
     genderOption: Yup.string().required('Required'),
     techStackOption: Yup.array().min(2, 'Check at least 2 items'),
-    date: Yup.string().required('Required'),
+    date: Yup.date().required('Required'),
     foodOption: Yup.array()
       .min(2, 'select at least 2 options')
       .nullable()
@@ -58,7 +59,7 @@ const FormikContainer = () => {
 
   const onSubmit = (values) => {
     console.log('values: ', values);
-    console.log('saved values: ', JSON.parse(JSON.stringify(values.date._d)));
+    console.log('date: ', moment(values.date._d).format('DD-MM-YYYY HH:mm:ss'));
   };
 
   return (
@@ -80,7 +81,7 @@ const FormikContainer = () => {
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
               >
-                {({ errors, touched, isSubmitting }) => (
+                {({ errors, touched, isValid }) => (
                   <Form>
                     <div className="row">
                       <div className="col-12">
@@ -176,7 +177,7 @@ const FormikContainer = () => {
                         <FormikControl
                           control="textarea"
                           as="textarea"
-                          rows="3"
+                          rows="4"
                           label="Bio"
                           required={true}
                           name="bio"
@@ -188,7 +189,7 @@ const FormikContainer = () => {
                         <div className="button mt-3">
                           <button
                             type="submit"
-                            disabled={isSubmitting}
+                            disabled={!isValid}
                             className="btn btn-dark px-5 py-2"
                           >
                             Submit
